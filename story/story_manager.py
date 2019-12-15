@@ -15,6 +15,7 @@ class Story:
         self.context = context
         self.rating = -1
         self.upload_story = upload_story
+        self.checkpoints = ""
 
         # list of actions. First action is the prompt length should always equal that of story blocks
         self.actions = []
@@ -46,6 +47,7 @@ class Story:
         self.seed = story_dict["seed"]
         self.actions = story_dict["actions"]
         self.results = story_dict["results"]
+        self.checkpoints = ''
         self.choices = story_dict["choices"]
         self.possible_action_results = story_dict["possible_action_results"]
         self.game_state = story_dict["game_state"]
@@ -64,6 +66,9 @@ class Story:
     def add_to_story(self, action, story_block):
         self.actions.append(action)
         self.results.append(story_block)
+    
+    def add_to_checkpoint(self,storyblock):
+        self.checkpoints = self.checkpoints + storyblock
 
     def latest_result(self):
 
@@ -72,14 +77,16 @@ class Story:
             latest_result = self.story_start
         else:
             latest_result = self.context
+            
         while mem_ind > 0:
 
             if len(self.results) >= mem_ind:
                 latest_result += self.actions[-mem_ind] + self.results[-mem_ind]
 
             mem_ind -= 1
-
+        latest_result = self.checkpoints + latest_result
         return latest_result
+
 
     def __str__(self):
         story_list = [self.story_start]
@@ -207,6 +214,9 @@ class UnconstrainedStoryManager(StoryManager):
         result = self.generate_result(action_choice)
         self.story.add_to_story(action_choice, result)
         return result
+    
+    def checkpoint(self,block):
+        self.story.add_to_checkpoint(block)
 
     def generate_result(self, action):
         block = self.generator.generate(self.story_context() + action)

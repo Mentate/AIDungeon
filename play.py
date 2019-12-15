@@ -89,6 +89,7 @@ def instructions():
     text += '\n  "print"    Prints a transcript of your adventure (without extra newline formatting)'
     text += '\n  "help"     Prints these instructions again'
     text += '\n  "censor off/on" to turn censoring off or on.'
+    text += '\n  "checkpoint" Will permanently permanently remember the last thing to happen.'
     return text
 
 
@@ -207,10 +208,15 @@ def play_aidungeon_2():
                 else:
                     console_print(story_manager.story.story_start)
                 continue
+            elif action == "checkpoint":
+                console_print("Checkpoint saved")
+                story_manager.checkpoint(str(story_manager.story.results[-1]))
+                story_manager.story.results = story_manager.story.results[:-1]
 
             else:
                 if action == "":
                     action = ""
+
                     result = story_manager.act(action)
                     console_print(result)
 
