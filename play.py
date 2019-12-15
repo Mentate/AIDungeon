@@ -90,7 +90,6 @@ def instructions():
     text += '\n Enter actions starting with a verb ex. "go to the tavern" or "attack the orc."'
     text += '\n To speak enter \'say "(thing you want to say)"\' or just "(thing you want to say)" '
     text += "\n\nThe following commands can be entered for any action: "
-<<<<<<< HEAD
     text += '\n  "revert"   Reverts the last action allowing you to pick a different action.'
     text += '\n  "quit"     Quits the game and saves'
     text += '\n  "restart"  Starts a new game and saves your current one'
@@ -100,16 +99,6 @@ def instructions():
     text += '\n  "help"     Prints these instructions again'
     text += '\n  "censor off/on" to turn censoring off or on.'
     text += '\n  "checkpoint" Will permanently permanently remember the last thing to happen.'
-=======
-    text += '\n  "/revert"   Reverts the last action allowing you to pick a different action.'
-    text += '\n  "/quit"     Quits the game and saves'
-    text += '\n  "/restart"  Starts a new game and saves your current one'
-    text += '\n  "/save"     Makes a new save of your game and gives you the save ID'
-    text += '\n  "/load"     Asks for a save ID and loads the game if the ID is valid'
-    text += '\n  "/print"    Prints a transcript of your adventure (without extra newline formatting)'
-    text += '\n  "/help"     Prints these instructions again'
-    text += '\n  "/censor off/on" to turn censoring off or on.'
->>>>>>> 0b31728d0af7f88a3b3a77b418fed8a0dd18d9e2
     return text
 
 
@@ -239,16 +228,12 @@ def play_aidungeon_2():
                     continue
 
                 else:
-<<<<<<< HEAD
                     console_print(story_manager.story.story_start)
                 continue
             elif action == "checkpoint":
                 console_print("Checkpoint saved")
                 story_manager.checkpoint(str(story_manager.story.results[-1]))
                 story_manager.story.results = story_manager.story.results[:-1]
-=======
-                    console_print(f"Unknown command: {command}")
->>>>>>> 0b31728d0af7f88a3b3a77b418fed8a0dd18d9e2
 
             else:
                 if action == "":
